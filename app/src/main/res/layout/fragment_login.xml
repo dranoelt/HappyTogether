@@ -13,26 +13,32 @@
         <TextView
             android:id="@+id/appName"
             android:layout_width="173dp"
-            android:layout_height="32dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="40dp"
+            android:layout_marginBottom="370dp"
             android:text="@string/app_name"
             android:textSize="24sp"
-            app:layout_constraintBottom_toTopOf="@+id/emailLayout"
+            app:layout_constraintBottom_toTopOf="@+id/password"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.497"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.638" />
 
+
         <LinearLayout
             android:id="@+id/emailLayout"
             android:layout_width="280dp"
             android:layout_height="50dp"
+            android:layout_marginTop="104dp"
             android:layout_marginBottom="36dp"
             android:orientation="horizontal"
-            app:layout_constraintBottom_toTopOf="@+id/passwordLayout"
+            app:layout_constraintBottom_toTopOf="@+id/password"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.496"
-            app:layout_constraintStart_toStartOf="parent">
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="1.0">
 
             <EditText
                 android:id="@+id/e_mail"
@@ -47,8 +53,8 @@
                 android:inputType="textPersonName" />
         </LinearLayout>
 
-        <LinearLayout
-            android:id="@+id/passwordLayout"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/PasswordLayout"
             android:layout_width="280dp"
             android:layout_height="50dp"
             android:layout_marginBottom="32dp"
@@ -56,20 +62,17 @@
             app:layout_constraintBottom_toTopOf="@+id/loginBtn"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.496"
-            app:layout_constraintStart_toStartOf="parent">
+            app:layout_constraintStart_toStartOf="parent"
+            app:passwordToggleEnabled="true"
+            >
 
-            <EditText
-                android:id="@+id/password"
-                android:layout_width="wrap_content"
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/Password"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginHorizontal="20dp"
-                android:layout_weight="1"
-                android:background="@android:color/transparent"
-                android:ems="10"
                 android:hint="Password"
-                android:inputType="textPassword" />
-        </LinearLayout>
+                android:inputType="textPassword"/>
+        </com.google.android.material.textfield.TextInputLayout>
 
         <Button
             android:id="@+id/loginBtn"
@@ -91,6 +94,8 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
+
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

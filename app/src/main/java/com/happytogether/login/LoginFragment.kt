@@ -57,7 +57,7 @@ class LoginFragment : Fragment() {
         controller = FbController(this.requireContext())
 
         var user = binding.eMail.text
-        var pass = binding.password.text
+        var pass = binding.Password.text
 
         binding.loginBtn.setOnClickListener{
             if (user.toString() == EMAIL_TEST && pass.toString() == PASSWORD_TEST) {
@@ -74,7 +74,9 @@ class LoginFragment : Fragment() {
                 Toast.makeText(this.activity, "Login Failed", Toast.LENGTH_SHORT).show()
             }
             user.clear()
-            pass.clear()
+            if (pass != null) {
+                pass.clear()
+            }
         }
 
         binding.btnReg.setOnClickListener {
