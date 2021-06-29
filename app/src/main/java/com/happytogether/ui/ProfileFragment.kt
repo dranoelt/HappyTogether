@@ -1,16 +1,16 @@
-package com.happytogether.login
+package com.happytogether.ui
 
+import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import com.happytogether.R
-import com.happytogether.data.Users
-import com.happytogether.databinding.FragmentRegisterBinding
-import com.happytogether.utilities.FbController
+import com.happytogether.data.FirstRunSharePref
+import com.happytogether.databinding.FragmentLoginBinding
+import com.happytogether.databinding.FragmentProfileBinding
+import com.happytogether.intro.SplashActivity
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -19,15 +19,14 @@ private const val ARG_PARAM2 = "param2"
 
 /**
  * A simple [Fragment] subclass.
- * Use the [RegisterFragment.newInstance] factory method to
+ * Use the [ProfileFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class RegisterFragment : Fragment() {
+class ProfileFragment : Fragment() {
 
+    var myFirstRun : FirstRunSharePref? = null
 
-    lateinit var controller: FbController
-
-    private var _binding: FragmentRegisterBinding? = null
+    private var _binding: FragmentProfileBinding? = null
     private val binding get() = _binding!!
 
     // TODO: Rename and change types of parameters
@@ -46,31 +45,19 @@ class RegisterFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = FragmentRegisterBinding.inflate(inflater, container, false)
+        _binding = FragmentProfileBinding.inflate(inflater, container, false)
         val view = binding.root
 
-        controller = FbController(this.requireContext())
+        myFirstRun = FirstRunSharePref(this.requireContext())
 
-        val username = binding.username.text
-        val full_name = binding.fullName.text
-        val email = binding.email.text
-        val password = binding.password.text
-
-        binding.btnRegister.setOnClickListener {
-                controller.saveUser(Users(username.toString(),email.toString(),password.toString()))
-                val loginFragment = LoginFragment.newInstance("a", "a")
-                openFragment(loginFragment)
+        val btn_logout = binding.btn05Logout
+        btn_logout.setOnClickListener {
+            myFirstRun!!.firstRun = true
+            var firstIntent = Intent(this.activity, SplashActivity::class.java)
+            startActivity(firstIntent)
+            this.requireActivity().finish()
         }
-
         return view
-    }
-
-
-    private fun openFragment(fragment: Fragment) {
-        val transaction = requireActivity().supportFragmentManager.beginTransaction()
-        transaction.replace(R.id.container, fragment)
-        transaction.addToBackStack(null)
-        transaction.commit()
     }
 
     companion object {
@@ -80,12 +67,12 @@ class RegisterFragment : Fragment() {
          *
          * @param param1 Parameter 1.
          * @param param2 Parameter 2.
-         * @return A new instance of fragment RegisterFragment.
+         * @return A new instance of fragment ProfileFragment.
          */
         // TODO: Rename and change types and number of parameters
         @JvmStatic
         fun newInstance(param1: String, param2: String) =
-            RegisterFragment().apply {
+            ProfileFragment().apply {
                 arguments = Bundle().apply {
                     putString(ARG_PARAM1, param1)
                     putString(ARG_PARAM2, param2)

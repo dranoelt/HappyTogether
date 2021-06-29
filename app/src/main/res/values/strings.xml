@@ -2,4 +2,35 @@
     <string name="app_name">HappyTogether</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="jasa">Jasa</string>
+    <string name="produk">Produk</string>
+    <string name="message">Message</string>
+    <string name="menu_burger">Menu</string>
+    <string name="promo">Promo</string>
+    <string name="search">Search</string>
+    <string name="lihat">Lihat Semua</string>
+    <string name="promo_01">Promo 01</string>
+    <string name="login">LOG IN</string>
+    <string name="register">REGISTER</string>
+    <string name="email_input">Email Address</string>
+    <string name="full_name">Nama Lengkap</string>
+    <string name="condition1">Minimal 6 Karakter, dapat berisi huruf, angka, dan tanda baca.</string>
+    <string name="condition2">Berpengaruh terhadap huruf besar dan kecil.</string>
+    <string name="pass">Password</string>
+    <string name="passre">Konfirmasi Password</string>
+    <string name="sign_up">SIGN UP</string>
+    <string name="cate_01">Artikel</string>
+    <string name="username">dranoelt</string>
+    <string name="loyalty">LOYALTY PROGRAM</string>
+    <string name="Histoty">RIWAYAT ORDER</string>
+    <string name="Order">ORDER KONSUMEN</string>
+    <string name="logout">Log Out</string>
+    <string name="Change_Pass">GANTI PASSWORD</string>
+    <string name="text_intro1">ESTIMASI BIAYA</string>
+    <string name="text_intro2">PROJECT</string>
+    <string name="text_intro3">HOT SALE</string>
+    <string name="desc_intro1">Sebelum melakukan pemesanan, cek terlebih dahulu biaya yang dibutuhkan. Manfaatkan fitur estimasi biaya kami untuk mengetahui perkiraan biayanya</string>
+    <string name="desc_intro2">Lihat proses pekerjaan dimanapun dan kapanpun</string>
+    <string name="desc_intro3">Dapatkan furniture rumah dengan kualitas dan harga terbaik untuk memenuhi kebutuhan furniture rumahmu</string>
 </resources>

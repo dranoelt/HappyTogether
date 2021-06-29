@@ -1,7 +1,7 @@
 package com.happytogether.utilities
 
 import android.content.Context
-import android.widget.EditText
+import android.util.Log
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
@@ -26,10 +26,10 @@ class FbController (context: Context) {
     }
 
     private fun readUserName() : MutableMap<String, String> {
-        var hasil = mutableMapOf<String, String>()
+        var hasil: MutableMap<String, String> = mutableMapOf<String, String>()
         ref.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
-                if (snapshot.exists()) {
+                if (snapshot!!.exists()) {
                     for (data in snapshot.children) {
                         val user = data.getValue(Users::class.java)
                         user.let {
@@ -38,35 +38,26 @@ class FbController (context: Context) {
                     }
                 }
             }
-
             override fun onCancelled(error: DatabaseError) {
                 TODO("Not yet implemented")
             }
-
         })
+//        println(hasil)
         return hasil
     }
 
-    fun deleteUser(srcName : String) {
-        val key = readUserName().filterValues { it == srcName }.keys
-        ref.child(key.first()).removeValue()
+    fun bla() {
+        println("abc" + readUserName())
     }
-
-    fun isExist(srcName : String): Boolean {
-        if (readUserName().containsValue(srcName))
-            return true
-        return false
-    }
-
-    private fun readUser() : MutableMap<String, ArrayList<String>> {
-        var hasil = mutableMapOf<String, ArrayList<String>>()
+    private fun readUserPass() : MutableMap<String, String> {
+        var hasil = mutableMapOf<String, String>()
         ref.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 if (snapshot.exists()) {
                     for (data in snapshot.children) {
                         val user = data.getValue(Users::class.java)
                         user.let {
-                            hasil.put(data.key.toString(), arrayListOf(it!!.userName, it.userPassword))
+                            hasil.put(data.key.toString(), it!!.userPassword)
                         }
                     }
                 }
@@ -77,12 +68,39 @@ class FbController (context: Context) {
         })
         return hasil
     }
+    fun deleteUser(srcName : String) {
+        val key = readUserName().filterValues { it == srcName }.keys
+        ref.child(key.first()).removeValue()
+    }
 
-    fun checkUser(srcName: String, srcPass: String): Boolean {
-        val user = readUser().filterValues { it[0] == srcName }.keys
-        val pass = readUser().filterValues { it[1] == srcPass }.keys
-        if ( user == pass )
+    fun isExist(srcName : String): Boolean {
+//        for (key in readUserName().keys) {
+////            Log.w("value : ", readUserName()[key].toString())
+//      println("aweafwef")
+//            println("Key = "+key +", "+"Value = "+readUserName()[key])
+//        }
+//        Log.w("out : ", readUserName().containsValue("ab").toString())
+        if (readUserName().containsValue("ab")){
+            return true
+        }
+        return false
+    }
+
+    fun isExistPass(srcPass : String): Boolean {
+        Log.w("out : ", readUserPass().containsValue(srcPass).toString())
+        if (readUserPass().containsValue(srcPass))
             return true
         return false
     }
+
+    fun checkUser(srcName: String, srcPass: String): Boolean {
+        val user = readUserName().keys
+        val pass = readUserPass().filterValues { it == srcPass }.keys
+        val userKey = user.first()
+        val passKey = pass.first()
+        Log.w("output : ", "${userKey}, ${passKey}")
+        return userKey == passKey
+    }
+
+
 }

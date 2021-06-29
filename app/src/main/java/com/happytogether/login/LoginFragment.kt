@@ -2,15 +2,19 @@ package com.happytogether.login
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import android.widget.Toast
 import com.happytogether.MainActivity
 import com.happytogether.R
+import com.happytogether.data.FirstRunSharePref
 import com.happytogether.databinding.FragmentLoginBinding
 import com.happytogether.utilities.FbController
+import org.w3c.dom.Text
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -31,6 +35,9 @@ public const val EXTRA_DATA = "12345"
 class LoginFragment : Fragment() {
 
     lateinit var controller: FbController
+
+
+    var myFirstRun : FirstRunSharePref? = null
 
     private var _binding: FragmentLoginBinding? = null
     private val binding get() = _binding!!
@@ -55,21 +62,37 @@ class LoginFragment : Fragment() {
         val view = binding.root
 
         controller = FbController(this.requireContext())
-
+        myFirstRun = FirstRunSharePref(this.requireContext())
         var user = binding.eMail.text
-        var pass = binding.Password.text
+        var pass = binding.password.text
 
         binding.loginBtn.setOnClickListener{
+            Log.w("Check : ", "${controller.isExist(user.toString())} && ${controller.isExistPass(pass.toString())}")
             if (user.toString() == EMAIL_TEST && pass.toString() == PASSWORD_TEST) {
+                myFirstRun!!.firstRun = false
                 var intent = Intent(this.activity, MainActivity::class.java)
                 startActivity(intent)
+                this.requireActivity().finish()
             }
-            else if (controller.checkUser(user.toString(), pass.toString())) {
-                var intent = Intent(this.activity, MainActivity::class.java)
-                intent.putExtra(EXTRA_DATA,user.toString())
-                startActivity(intent)
-            }
+//            else if (controller.isExist(user.toString()) && controller.isExistPass(pass.toString())) {
+//                if (controller.checkUser(user.toString(), pass.toString())) {
+//                    myFirstRun!!.firstRun = false
+//                    var intent = Intent(this.activity, MainActivity::class.java)
+//                    intent.putExtra(EXTRA_DATA,user.toString())
+//                    startActivity(intent)
+//                    this.requireActivity().finish()
+//                }
+//            }
+//            else if (controller.checkUser(user.toString(), pass.toString())) {
+//                myFirstRun!!.firstRun = false
+//                var intent = Intent(this.activity, MainActivity::class.java)
+//                intent.putExtra(EXTRA_DATA,user.toString())
+//                startActivity(intent)
+//                this.requireActivity().finish()
+//            }
             else {
+                controller.bla()
+                controller.isExist(user.toString())
 //                (activity as LoginActivity).check(user.toString(), pass.toString())
                 Toast.makeText(this.activity, "Login Failed", Toast.LENGTH_SHORT).show()
             }
